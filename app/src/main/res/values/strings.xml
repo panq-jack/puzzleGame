@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">拼图游戏</string>
+
+    <string name="chooser">难度选择: </string>
+
+    <string name="puzzle_main_steps">步数：</string>
+    <string name="puzzle_show_origin_img">显示原图</string>
+    <string name="puzzle_hide_origin_img">隐藏原图</string>
+    <string name="puzzle_main_reset">重        置</string>
+    <string name="puzzle_main_record">记         录</string>
+    <string name="puzzle_main_time">时间：</string>
+    <string name="puzzle_main_type_selected">2 X 2</string>
+    <string name="puzzle_main_more">了解更多</string>
+
+    <string name="puzzle_timer">时间: %d秒</string>
+    <string name="puzzle_counterdown_timer">倒计时: %d秒</string>
+    <string name="puzzle_stepCounter">步数: %d步</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="chooser_type1">
+        <item>2x2</item>
+        <item>3x3</item>
+        <item>4x4</item>
+        <item>5x5</item>
+    </string-array>
+
+
+    <string-array name="chooser_type2">
+        <item>普通模式 : 不计时间轻松娱乐</item>
+        <item>挑战模式 : 固定时间挑战自我</item>
+    </string-array>
+
+    <string-array name="chooser_pic">
+        <item>本地相册</item>
+        <item>相机拍照</item>
+    </string-array>
+
+    <integer-array name="pics_ids">
+        <item>@mipmap/pic1</item>
+        <item>@mipmap/pic2</item>
+        <item>@mipmap/pic3</item>
+        <item>@mipmap/pic4</item>
+        <item>@mipmap/pic5</item>
+        <item>@mipmap/pic6</item>
+        <item>@mipmap/pic7</item>
+        <item>@mipmap/pic8</item>
+        <item>@mipmap/plus</item>
+    </integer-array>
+</resources>

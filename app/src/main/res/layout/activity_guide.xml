@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_bg"
+    tools:context=".view.GuideActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_guide_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chooser"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_title" />
+
+        <!--eg:2*2; 3*3-->
+        <Spinner
+            android:id="@+id/sp_guide_type1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:spinnerMode="dropdown"/>
+
+        <!--eg: 普通，难度-->
+        <Spinner
+            android:id="@+id/sp_guide_type2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:spinnerMode="dialog"/>
+
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gv_guide_pic_list"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:horizontalSpacing="@dimen/gridview_padding"
+        android:numColumns="3"
+        android:padding="@dimen/gridview_padding"
+        android:verticalSpacing="@dimen/gridview_padding" />
+
+</LinearLayout>
