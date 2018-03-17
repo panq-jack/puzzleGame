@@ -29,4 +29,10 @@
         <item>@mipmap/pic8</item>
         <item>@mipmap/plus</item>
     </integer-array>
+
+    <integer-array name="pics_startup">
+        <item>@mipmap/pic3</item>
+        <item>@mipmap/pic7</item>
+        <item>@mipmap/pic6</item>
+    </integer-array>
 </resources>

@@ -84,7 +84,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding"
             android:background="@drawable/white_button"
-            android:text="@string/puzzle_main_record" />
+            android:text="@string/puzzle_main_record"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <GridView

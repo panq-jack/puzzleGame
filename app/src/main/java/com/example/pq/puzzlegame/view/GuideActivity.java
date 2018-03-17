@@ -26,7 +26,6 @@ import com.example.pq.puzzlegame.R;
 import com.example.pq.puzzlegame.adapter.GridViewResPicAdapter;
 import com.example.pq.puzzlegame.util.ConstantUtil;
 import com.example.pq.puzzlegame.util.LogUtil;
-import com.example.pq.puzzlegame.util.ToastUtil;
 import com.example.pq.puzzlegame.util.Util;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
@@ -120,7 +119,7 @@ public class GuideActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                ToastUtil.shortToast(GuideActivity.this, "onNothingSelected: ");
+//                ToastUtil.shortToast(GuideActivity.this, "onNothingSelected: ");
             }
         });
 
@@ -140,7 +139,7 @@ public class GuideActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                ToastUtil.shortToast(GuideActivity.this, "onNothingSelected: ");
+//                ToastUtil.shortToast(GuideActivity.this, "onNothingSelected: ");
             }
         });
 
@@ -301,7 +300,7 @@ public class GuideActivity extends AppCompatActivity {
             }
         }
         if (requestCode == REQUEST_CODE_SETTING) {
-            ToastUtil.shortToast(this, "back from settings");
+//            ToastUtil.shortToast(this, "back from settings");
         }
     }
 
@@ -343,13 +342,13 @@ public class GuideActivity extends AppCompatActivity {
 
     @PermissionYes(REQUEST_CODE_PERMISSION_CAMERA)
     private void getCameraPermissionGranted(@NonNull List<String> grantedPermissions) {
-        ToastUtil.shortToast(this, "Camera permission granted");
+//        ToastUtil.shortToast(this, "Camera permission granted");
         openCamera();
     }
 
     @PermissionNo(REQUEST_CODE_PERMISSION_CAMERA)
     private void getCameraPermissionDenied(@NonNull List<String> deniedPermissions) {
-        ToastUtil.shortToast(this, "Camera permission denied");
+//        ToastUtil.shortToast(this, "Camera permission denied");
 
         if (AndPermission.hasAlwaysDeniedPermission(this, deniedPermissions)) {
             AndPermission.defaultSettingDialog(this, REQUEST_CODE_SETTING).show();
@@ -359,13 +358,13 @@ public class GuideActivity extends AppCompatActivity {
 
     @PermissionYes(REQUEST_CODE_PERMISSION_STORAGE)
     private void getStoragePermissionGranted(@NonNull List<String> grantedPermissions) {
-        ToastUtil.shortToast(this, "storage permission granted");
+//        ToastUtil.shortToast(this, "storage permission granted");
         openAlbum();
     }
 
     @PermissionNo(REQUEST_CODE_PERMISSION_STORAGE)
     private void getStoragePermissionDenied(@NonNull List<String> deniedPermissions) {
-        ToastUtil.shortToast(this, "storage permission denied");
+//        ToastUtil.shortToast(this, "storage permission denied");
         if (AndPermission.hasAlwaysDeniedPermission(this,deniedPermissions)){
             AndPermission.defaultSettingDialog(this,REQUEST_CODE_SETTING).show();
         }

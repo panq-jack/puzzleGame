@@ -30,19 +30,17 @@ import com.example.pq.puzzlegame.util.ConstantUtil;
 import com.example.pq.puzzlegame.util.DPIUtil;
 import com.example.pq.puzzlegame.util.GameUtil;
 import com.example.pq.puzzlegame.util.LogUtil;
-import com.example.pq.puzzlegame.util.ToastUtil;
 import com.example.pq.puzzlegame.util.Util;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class PuzzleActivity extends AppCompatActivity implements View.OnClickListener {
     private final static String TAG = "PuzzleActivity";
 
     private final static int CLICK_COOL_TIME=2000;
+    private final static int COUNTERDOWN_INDEX =60;
 
     private final static int MSG_WHAT_TIMER=1;
     private final static int MSG_WHAT_COUNTERDOWN=2;
@@ -76,7 +74,7 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
     private GridViewPuzzleAdapter mAdapter;
 
     //
-    AlertDialog mExitDialog;
+    AlertDialog mExitDialog , mInfoDialog;
 
     private boolean isOriginImgShown=false;
     // 冷却时间--显示隐藏原图按钮
@@ -104,7 +102,13 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
                     //更新倒计时
                     if (!canTimerRunning || isOriginImgShown)return;
                     TIMER_INDEX--;
-
+                    mTvTimer.setText(getString(R.string.puzzle_counterdown_timer, TIMER_INDEX));
+                    if (0==TIMER_INDEX){
+//                        ToastUtil.longToast(PuzzleActivity.this,"时间到了");
+                        showInfoDialog(ConstantUtil.TYPE_INFO.TYPE_COUNTERDOWN);
+                    }else {
+                        sendEmptyMessageDelayed(MSG_WHAT_COUNTERDOWN,1000);
+                    }
                     break;
                 case MSG_WHAT_IMGCLICK:
                     canClickImgBtn=true;
@@ -135,6 +139,8 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
 
         mCount = getIntent().getExtras().getInt("mCount", Util.type2count(ConstantUtil.TYPE_N.TYPE_2));
         mDifficulty = getIntent().getExtras().getInt("mDifficulty", ConstantUtil.DIFFICUILTY.NORMAL);
+
+        TIMER_INDEX= ConstantUtil.DIFFICUILTY.CHALLENAGE==mDifficulty?COUNTERDOWN_INDEX:0;
     }
 
     private void handleSelectedImg() {
@@ -177,7 +183,8 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
         mTvStepCounter.setText(getResources().getString(R.string.puzzle_stepCounter, COUNT_INDEX));
         // TV计时器
         mTvTimer = (TextView) findViewById(R.id.tv_puzzle_timer);
-        mTvTimer.setText(getResources().getString(R.string.puzzle_timer, TIMER_INDEX));
+//        mTvTimer.setText(getResources().getString(R.string.puzzle_timer, TIMER_INDEX));
+        setTimerTime(TIMER_INDEX);
 
         // 点击事件
         mBtnRecord.setOnClickListener(this);
@@ -211,7 +218,8 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
                         mBitmapItemLists.add(mLastBitmap);
                         // 通知GridView更改UI
                         mAdapter.notifyDataSetChanged();
-                        ToastUtil.longToast(PuzzleActivity.this, "拼图成功!");
+//                        ToastUtil.longToast(PuzzleActivity.this, "拼图成功!");
+                        showInfoDialog(ConstantUtil.TYPE_INFO.TYPE_SUC);
                         mGridView.setEnabled(false);
                         pauseTimer();
                     }
@@ -292,7 +300,7 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
 
     private void startOrResumeTimer() {
         canTimerRunning=true;
-        mHandler.sendEmptyMessageDelayed(MSG_WHAT_TIMER,1000);
+        mHandler.sendEmptyMessageDelayed(ConstantUtil.DIFFICUILTY.CHALLENAGE==mDifficulty?MSG_WHAT_COUNTERDOWN:MSG_WHAT_TIMER,1000);
     }
 
     private void pauseTimer() {
@@ -301,12 +309,14 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
 
     private void resetTimer(){
         pauseTimer();
-        mTvTimer.setText(getString(R.string.puzzle_timer,0));
+//        mTvTimer.setText(getString(R.string.puzzle_timer,0));
+        TIMER_INDEX=ConstantUtil.DIFFICUILTY.CHALLENAGE==mDifficulty?COUNTERDOWN_INDEX:0;
+        setTimerTime(TIMER_INDEX);
         startOrResumeTimer();
     }
 
     /**
-     *
+     *显示or隐藏 原图
      */
     private void showOrHideOriginImgView(){
         if (null==mOriginImgViewContainer){
@@ -343,6 +353,19 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
             mBtnImage.setText(getString(R.string.puzzle_show_origin_img));
             startOrResumeTimer();
         }
+    }
+
+    /**
+     * 计时模式和倒计时模式
+     * @param time
+     */
+    private void setTimerTime(int time){
+        if (ConstantUtil.DIFFICUILTY.CHALLENAGE==mDifficulty){
+            mTvTimer.setText(getString(R.string.puzzle_counterdown_timer,time));
+        }else {
+            mTvTimer.setText(getString(R.string.puzzle_timer,time));
+        }
+
     }
 
     /**
@@ -392,6 +415,51 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
         if (!isFinishing()){
             mExitDialog.show();
         }
+    }
+
+    private void showInfoDialog(int type){
+        if (null== mInfoDialog){
+            mInfoDialog =new AlertDialog.Builder(this)
+                    .setPositiveButton("退出", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if (!isFinishing()){
+                                mInfoDialog.dismiss();
+                                finish();
+                            }
+                        }
+                    })
+                    .setNegativeButton("再玩一次", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            mBtnReset.performClick();
+                        }
+                    })
+                    .create();
+            mInfoDialog.setCanceledOnTouchOutside(false);
+            mInfoDialog.setCancelable(false);
+        }
+        if (ConstantUtil.TYPE_INFO.TYPE_SUC==type){
+            mInfoDialog.setTitle("恭喜成功咯~~");
+            mInfoDialog.setMessage(getSuccessMsg());
+        }else if (ConstantUtil.TYPE_INFO.TYPE_COUNTERDOWN==type){
+            mInfoDialog.setTitle("时间到了~~");
+            mInfoDialog.setMessage(getSuccessMsg());
+        }
+        if (!isFinishing()){
+            mInfoDialog.show();
+        }
+    }
+
+    private String getSuccessMsg(){
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("您本次的成绩是:\n")
+                .append("在 ").append(mCount).append(" * ").append(mCount)
+                .append(" , ").append(ConstantUtil.DIFFICUILTY.CHALLENAGE==mDifficulty?"挑战":"普通")
+                .append("模式中\n")
+                .append("耗时: "+ (ConstantUtil.DIFFICUILTY.CHALLENAGE==mDifficulty?COUNTERDOWN_INDEX-TIMER_INDEX:TIMER_INDEX-0)+"秒")
+                .append("  , 用了："+COUNT_INDEX+"步");
+        return stringBuilder.toString();
     }
 
     @Override

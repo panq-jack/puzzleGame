@@ -16,4 +16,9 @@ public class ConstantUtil {
         public final static int NORMAL=0;
         public final static int CHALLENAGE=1;
     }
+
+    public static class TYPE_INFO{
+        public final static int TYPE_SUC=0;
+        public final static int TYPE_COUNTERDOWN=1;
+    }
 }

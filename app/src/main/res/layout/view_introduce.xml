@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_margin="5dp"
+        android:text="本游戏是拼图类游戏，会把图片分成打乱顺序的若干部分，当玩家把各部分顺序拼好，即游戏成功！"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_margin="5dp"
+        android:text="游戏难度可选择，包括：2*2，3*3，4*4，5*5，难度依此增加"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="16sp"
+        android:text="游戏分为2种模式：普通模式为不计时，适合打发时间；  挑战模式需在固定时间内完成"/>
+
+    <TextView
+        android:id="@+id/sure"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="3dp"
+        android:layout_marginTop="10dp"
+        android:background="@mipmap/tick"/>
+
+</LinearLayout>

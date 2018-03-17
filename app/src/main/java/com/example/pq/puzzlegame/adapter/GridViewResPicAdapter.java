@@ -50,11 +50,15 @@ public class GridViewResPicAdapter extends BaseAdapter {
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     (int)DPIUtil.dp2px(context,150)));
             // 设置显示比例类型
-            iv_pic_item.setScaleType(ImageView.ScaleType.FIT_XY);
+            if (position==getCount()-1){
+                iv_pic_item.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            }else {
+                iv_pic_item.setScaleType(ImageView.ScaleType.FIT_XY);
+            }
         } else {
             iv_pic_item = (ImageView) convertView;
         }
-        iv_pic_item.setBackgroundColor(Color.BLACK);
+        iv_pic_item.setBackgroundColor(Color.WHITE);
         iv_pic_item.setImageBitmap(mPicBitmaps.get(position));
         return iv_pic_item;
     }
